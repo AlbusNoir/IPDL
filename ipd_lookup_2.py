@@ -6,17 +6,18 @@ Utilizes PyDNSBL to determine if an IP or domain is malicious or not
 
 import pydnsbl
 from pydnsbl.providers import BASE_PROVIDERS, Provider  # Provider is for user-made providers
+from more_providers import more_providers
 
-__author__ = "Kale"
+__author__ = "Kaleb Sego"
 __copyright__ = "Copyright 2021"
 __license__ = "GPLv3"
 __version__ = "1.0.1"
-__maintainer__ = "Kale"
+__maintainer__ = "Kaleb Sego"
 __contact__ = "https://github.com/AlbusNoir"
 
 
-providers = BASE_PROVIDERS  # if additional providers, use below
-# providers = BASE_PROVIDERS + [Provider('theprovider.com'),...]
+#providers = BASE_PROVIDERS  # if additional providers, use below
+providers = BASE_PROVIDERS + more_providers
 ip_checker = pydnsbl.DNSBLIpChecker(providers = providers)
 domain_checker = pydnsbl.DNSBLDomainChecker()
 
@@ -59,7 +60,7 @@ def main():
             Verbose will output the following: blacklist(T/F), which blacklist the IP/domain is in, the category the 
             IP/domain was assigned to, and a list of providers(databases) the IP/domain was scanned through
             
-            Non-verbose will output the following: blacklist(T/F), which blacklist the IP/Domain is in
+            Non-verbose will output the following: blacklist(T/F)
             ''')
         elif i == '4':
             break
@@ -73,21 +74,19 @@ def verbose():
     MODE: VERBOSE
     1) IP Lookup
     2) Domain Lookup
-    3) Back
-    4) Quit     
+    3) Quit     
    ''')
 
     while True:
-        i = input('IPDL:M=V> ')
+        i = input('> ')
 
         if i == '1':
             verbose_lookup_ip()
+            break
         elif i == '2':
             verbose_lookup_domain()
-        elif i == '3':
-            main()
             break
-        elif i == '4':
+        elif i == '3':
             break
         else:
             print(f'Input Error: {i} not an option')
@@ -99,21 +98,19 @@ def non_verbose():
     MODE: FAST
     1) IP Lookup
     2) Domain Lookup
-    3) Back
-    4) Quit     
+    3) Quit     
    ''')
 
     while True:
-        i = input('IPDL:M=F> ')
+        i = input('> ')
 
         if i == '1':
             non_verbose_lookup_ip()
+            break
         elif i == '2':
             non_verbose_lookup_domain()
-        elif i == '3':
-            main()
             break
-        elif i == '4':
+        elif i == '3':
             break
         else:
             print(f'Input Error: {i} not an option')
@@ -173,11 +170,9 @@ def non_verbose_lookup_ip():
 
         result = ip_checker.check(ip)
         bl = result.blacklisted
-        detected = result.detected_by
 
         print(f'''RESULTS of {ip}:
         Blacklisted: {bl}
-        Detected By: {detected}
         
         For more information, run verbose mode
         ''')
@@ -193,11 +188,9 @@ def non_verbose_lookup_domain():
 
         result = domain_checker.check(domain)
         bl = result.blacklisted
-        detected = result.detected_by
 
         print(f'''RESULTS of {domain}:
         Blacklisted: {bl}
-        Detected By: {detected}
         
         For more information, run verbose mode
         ''')
@@ -205,7 +198,3 @@ def non_verbose_lookup_domain():
 
 if __name__ == '__main__':
     main()
-
-
-# TODO: urls still won't allow / in the input, so base site only unfortunately
-# TODO: can this be extended for hashes?
