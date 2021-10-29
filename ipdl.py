@@ -7,11 +7,14 @@ Utilizes PyDNSBL to determine if an IP or domain is malicious or not
 import pydnsbl
 from pydnsbl.providers import BASE_PROVIDERS
 from more_providers import more_providers
+from pull_providers import pull_providers
+
+from time import sleep
 
 __author__ = "Kaleb Sego"
 __copyright__ = "Copyright 2021"
 __license__ = "GPLv3"
-__version__ = "1.0.5"
+__version__ = "1.1.0"
 __maintainer__ = "Kaleb Sego"
 __contact__ = "https://github.com/AlbusNoir"
 
@@ -22,11 +25,14 @@ if len(more_providers) == 0:
     ip_checker = pydnsbl.DNSBLIpChecker(providers = providers)
 
     print('Additional providers not found. Using base provider list...')
+    sleep(1)  # not needed I just like seeing the pause
+
 elif len(more_providers) > 0:
     providers = BASE_PROVIDERS + more_providers
     ip_checker = pydnsbl.DNSBLIpChecker(providers = providers)
 
     print('Additional providers found. Adding to provider list...')
+    sleep(1)  # not needed I just like seeing the pause
 
 
 domain_checker = pydnsbl.DNSBLDomainChecker()
@@ -45,8 +51,9 @@ def main():
     IP & Domain Lookup
     1) Run verbose
     2) Run non-verbose
-    3) Help
-    4) Quit
+    3) Pull additional providers
+    4) Help
+    5) Quit
     ''')
 
     while True:
@@ -59,6 +66,23 @@ def main():
             non_verbose()
             break
         elif i == '3':
+            print('''WARNING: 
+            running pull_providers will pull down approx 300 providers into the available providers.
+            This may result in a significant increase in the amount of time it takes to run queries.
+            This is provided as an optional function and is NOT required to perform queries.''')
+            proceed = input('\nDo you wish to proceed? Y/n\n > ')
+
+            if proceed.lower() == 'y':
+                pull_providers()
+                print('Providers list has been updated. Please re-run IPDL to have make these available to use in '
+                      'queries')
+                break
+            elif proceed.lower() == 'n':
+                continue
+            else:
+                print('Handling unexpected input as a "No"')
+                break
+        elif i == '4':
             print('''
             IPDLookup is a tool that accepts IP addresses and domains and runs them through various databases to 
             determine if they are malicious or not.
@@ -71,6 +95,11 @@ def main():
             IP/domain was assigned to, and a list of providers(databases) the IP/domain was scanned through
             
             Non-verbose will output the following: blacklist(T/F)
+            
+            You do NOT need to run pull_providers to run queries using IPDL. Pull_providers is an added feature to 
+            extend the amount of providers you run queries against. It does not add any kind of extra to IPDL, 
+            just allows queries to hit more providers to check blacklists. If you do not want to use this added 
+            feature, you are free not to.
             ''')
         elif i == '4':
             break

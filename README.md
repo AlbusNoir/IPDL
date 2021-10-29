@@ -67,13 +67,15 @@ This is an example of how to list things you need to use the software and how to
 * Install packages
   ```
   pip install pydnsbl
+  pip install beautifulsoup4
+  pip install requests
   ```
 
 ### Installation
 
 1. Clone the repo
    ```
-   git clone https://github.com/github_username/repo.git
+   git clone https://github.com/albusnoir/ipdl.git
    ```
 
 
@@ -83,18 +85,18 @@ This is an example of how to list things you need to use the software and how to
 
 IPDL has two modes: verbose and fast(non-verbose). Verbose will provide you with more information than fast will._
 
-
+Pull_providers is an added feature that will pull providers down from https://multirbl.valli.org/list/ and add them to providers.txt to pull into the overarching provider list 
 
 <!-- ROADMAP -->
 ## Roadmap
 _Current_
-- [x] Make the thing 
-- [ ] should there be color (green v red) if detected/not? 
-- [ ] Brightcloud and VirusTotal sometimes differ in detection, is this an issue?
-- [ ] Current limitations: adding / to a url breaks the code so it can't scan beyond site.com
+- [x] Make the thing
+- [x] ~~Brightcloud and VirusTotal sometimes differ in detection, is this an issue?~~ - Not an issue. Due to how "malicious" is defined and also how different providers use different blacklists, this is actually expected.
+- [x] ~~Current limitations: adding / to a url breaks the code so it can't scan beyond site.com.~~ - You don't need to scan beyond root site.
+- [x] Extend provider functionality
 
 _Future Plans_
-
+- [ ] should there be color (green v red) if detected/not? 
 
 
 <!-- CONTRIBUTING -->
