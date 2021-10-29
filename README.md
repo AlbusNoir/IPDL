@@ -69,6 +69,8 @@ This is an example of how to list things you need to use the software and how to
   pip install pydnsbl
   pip install beautifulsoup4
   pip install requests
+  pip install colorama
+  pip install termcolor
   ```
 
 ### Installation

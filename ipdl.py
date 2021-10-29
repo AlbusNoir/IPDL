@@ -9,6 +9,9 @@ from pydnsbl.providers import BASE_PROVIDERS
 from more_providers import more_providers
 from pull_providers import pull_providers
 
+from colorama import init
+from termcolor import colored
+
 from time import sleep
 
 __author__ = "Kaleb Sego"
@@ -18,6 +21,9 @@ __version__ = "1.1.0"
 __maintainer__ = "Kaleb Sego"
 __contact__ = "https://github.com/AlbusNoir"
 
+
+# init colorama
+init()
 
 # handle additional providers more flexibly and assign ip_checker accordingly
 if len(more_providers) == 0:
@@ -66,7 +72,8 @@ def main():
             non_verbose()
             break
         elif i == '3':
-            print('''WARNING: 
+            print(colored('WARNING:', 'red'))
+            print('''
             running pull_providers will pull down approx 300 providers into the available providers.
             This may result in a significant increase in the amount of time it takes to run queries.
             This is provided as an optional function and is NOT required to perform queries.''')
@@ -169,8 +176,13 @@ def verbose_lookup_ip():
         cat = result.categories if result.blacklisted else 'N/A'
         prov = result.providers
 
+        if bl == False:
+            bl_colored = colored(bl, 'red')
+        else:
+            bl_colored = colored(bl, 'green')
+
         print(f'''RESULTS of {ip}:
-        Blacklisted: {bl}
+        Blacklisted: {bl_colored}
         Detected By: {caught_by}
         Categories: {cat}
         Scanned By: {prov}
@@ -191,8 +203,13 @@ def verbose_lookup_domain():
         cat = result.categories if result.blacklisted else 'N/A'
         prov = result.providers
 
+        if bl == False:
+            bl_colored = colored(bl, 'red')
+        else:
+            bl_colored = colored(bl, 'green')
+
         print(f'''RESULTS of {domain}:
-                Blacklisted: {bl}
+                Blacklisted: {bl_colored}
                 Detected By: {caught_by}
                 Categories: {cat}
                 Scanned By: {prov}
@@ -210,8 +227,13 @@ def non_verbose_lookup_ip():
         result = ip_checker.check(ip)
         bl = result.blacklisted
 
+        if bl == False:
+            bl_colored = colored(bl, 'red')
+        else:
+            bl_colored = colored(bl, 'green')
+
         print(f'''RESULTS of {ip}:
-        Blacklisted: {bl}
+        Blacklisted: {bl_colored}
         
         For more information, run verbose mode
         ''')
@@ -228,8 +250,13 @@ def non_verbose_lookup_domain():
         result = domain_checker.check(domain)
         bl = result.blacklisted
 
+        if bl == False:
+            bl_colored = colored(bl, 'red')
+        else:
+            bl_colored = colored(bl, 'green')
+
         print(f'''RESULTS of {domain}:
-        Blacklisted: {bl}
+        Blacklisted: {bl_colored}
         
         For more information, run verbose mode
         ''')
