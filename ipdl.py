@@ -17,7 +17,7 @@ from time import sleep
 __author__ = "Kaleb Sego"
 __copyright__ = "Copyright 2021"
 __license__ = "GPLv3"
-__version__ = "1.1.0"
+__version__ = "1.2.1"
 __maintainer__ = "Kaleb Sego"
 __contact__ = "https://github.com/AlbusNoir"
 
@@ -104,11 +104,11 @@ def main():
             Non-verbose will output the following: blacklist(T/F)
             
             You do NOT need to run pull_providers to run queries using IPDL. Pull_providers is an added feature to 
-            extend the amount of providers you run queries against. It does not add any kind of extra to IPDL, 
+            extend the amount of providers you run queries against. It does not add any kind of extra feature to IPDL, 
             just allows queries to hit more providers to check blacklists. If you do not want to use this added 
             feature, you are free not to.
             ''')
-        elif i == '4':
+        elif i == '5':
             break
         else:
             print(f'Input Error: {i} not an option')
@@ -188,6 +188,9 @@ def verbose_lookup_ip():
         Scanned By: {prov}
         ''')
 
+        print('')
+        main()
+
 
 def verbose_lookup_domain():
     """Perform domain lookup for verbose mode"""
@@ -215,6 +218,9 @@ def verbose_lookup_domain():
                 Scanned By: {prov}
         ''')
 
+        print('')
+        main()
+
 
 def non_verbose_lookup_ip():
     """Perform ip lookup for non-verbose mode"""
@@ -238,6 +244,9 @@ def non_verbose_lookup_ip():
         For more information, run verbose mode
         ''')
 
+        print('')
+        main()
+
 
 def non_verbose_lookup_domain():
     """Perform domain lookup for non-verbose mode"""
@@ -260,6 +269,9 @@ def non_verbose_lookup_domain():
         
         For more information, run verbose mode
         ''')
+
+        print('')
+        main()
 
 
 if __name__ == '__main__':
