@@ -1,0 +1,110 @@
+def verbose_lookup_ip():
+    """Perform ip lookup for verbose mode"""
+    ip = input('Enter IP address(s), separated by a comma, no spaces: ')
+
+    ip_list = ip.split(",")
+
+    for ip in ip_list:
+
+        result = ip_checker.check(ip)
+        caught_by = result.detected_by if result.blacklisted else 'N/A'
+        bl = result.blacklisted
+        cat = result.categories if result.blacklisted else 'N/A'
+        prov = result.providers
+
+        if bl == False:
+            bl_colored = colored(bl, 'red')
+        else:
+            bl_colored = colored(bl, 'green')
+
+        print(f'''RESULTS of {ip}:
+        Blacklisted: {bl_colored}
+        Detected By: {caught_by}
+        Categories: {cat}
+        Scanned By: {prov}
+        ''')
+
+        print('')
+        main()
+
+
+def verbose_lookup_domain():
+    """Perform domain lookup for verbose mode"""
+    domain = input('Enter domain(s), separated by a comma, no spaces: ')
+
+    domain_list = domain.split(",")
+
+    for domain in domain_list:
+
+        result = domain_checker.check(domain)
+        caught_by = result.detected_by if result.blacklisted else 'N/A'
+        bl = result.blacklisted
+        cat = result.categories if result.blacklisted else 'N/A'
+        prov = result.providers
+
+        if bl == False:
+            bl_colored = colored(bl, 'red')
+        else:
+            bl_colored = colored(bl, 'green')
+
+        print(f'''RESULTS of {domain}:
+                Blacklisted: {bl_colored}
+                Detected By: {caught_by}
+                Categories: {cat}
+                Scanned By: {prov}
+        ''')
+
+        print('')
+        main()
+
+
+def non_verbose_lookup_ip():
+    """Perform ip lookup for non-verbose mode"""
+    ip = input('Enter IP address(s), separated by a comma, no spaces: ')
+
+    ip_list = ip.split(",")
+
+    for ip in ip_list:
+
+        result = ip_checker.check(ip)
+        bl = result.blacklisted
+
+        if bl == False:
+            bl_colored = colored(bl, 'red')
+        else:
+            bl_colored = colored(bl, 'green')
+
+        print(f'''RESULTS of {ip}:
+        Blacklisted: {bl_colored}
+
+        For more information, run verbose mode
+        ''')
+
+        print('')
+        main()
+
+
+def non_verbose_lookup_domain():
+    """Perform domain lookup for non-verbose mode"""
+    domain = input('Enter domain(s), separated by a comma, no spaces: ')
+
+    domain_list = domain.split(",")
+
+    for domain in domain_list:
+
+        result = domain_checker.check(domain)
+        bl = result.blacklisted
+
+        if bl == False:
+            bl_colored = colored(bl, 'red')
+        else:
+            bl_colored = colored(bl, 'green')
+
+        print(f'''RESULTS of {domain}:
+        Blacklisted: {bl_colored}
+
+        For more information, run verbose mode
+        ''')
+
+        print('')
+        main()
